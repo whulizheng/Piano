@@ -3,7 +3,7 @@ import numpy as np
 import Preprocessor
 import sklearn
 
-url = https: // virtualpiano.net/
+url = "https://virtualpiano.net/"
 # 获取手动训练集和测试集
 
 
@@ -15,13 +15,16 @@ def select_classifier(classifier_name, input_shape, nb_classes, output_directory
             nb_classes=nb_classes,
             output_directory=output_directory
         )
+    else:
+        print("不支持的分类器")
+        exit(-1)
 
 
 if __name__ == "__main__":
     config = Utils.readjson("config.json")
     preprocessor = Preprocessor.preprocessor()
-    data_names = ["p0.wav", "p1.wav", "p2.wav"]
-    ans_names = ["p0.csv", "p1.csv", "p2.csv"]
+    data_names = ["p0.wav", "p1.wav", "p2.wav", "p3.wav", "p4.wav", "p5.wav"]
+    ans_names = ["p0.csv", "p1.csv", "p2.csv", "p3.csv", "p4.csv", "p5.csv"]
     batch_size = config["model"]["batch_size"]
     epochs = config["model"]["epoch"]
     y_train = []
@@ -45,13 +48,10 @@ if __name__ == "__main__":
         config["model"]["input_shape"],
         config["model"]["nb_classes"],
         config["model"]["model_path"])
-    classifier.fit(x_train, y_train, batch_size, epochs)
-
-
-
+    # classifier.fit(x_train, y_train, batch_size, epochs)
     # 下面是测试部分
     classifier.load_model("model/best_model.hdf5")
-    y = preprocessor.LoadFile("data/test/2.wav")  # ans = 864948350
+    y = preprocessor.LoadFile("data/test/1.wav")  # ans = 864948350
     onsets = preprocessor.ConvertOnsetCut(y)
     for on in onsets:
         y_pred = classifier.predict(np.array(on).reshape((1, 1025, 1, 1)))

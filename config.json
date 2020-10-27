@@ -10,7 +10,7 @@
         "model_name": "fcn",
         "model_path": "model\\",
         "batch_size": 8,
-        "epoch": 40
+        "epoch": 6
     },
     "advanced": {
 

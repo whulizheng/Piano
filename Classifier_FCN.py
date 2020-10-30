@@ -47,6 +47,8 @@ class Classifier_FCN:
         nb_epochs = epochs
         self.model.fit(x_train, y_train, batch_size=batch_size,
                        epochs=nb_epochs, callbacks=self.callbacks)
+        print('模型已保存到下面目录')
+        print(self.output_directory + 'best_model.hdf5')
 
     def predict(self, x):
         y = self.model.predict(x)

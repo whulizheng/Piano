@@ -16,7 +16,7 @@ class preprocessor():
         onsets_frames = librosa.onset.onset_detect(y)
         results = []
         D = librosa.stft(y)
-        # T = librosa.amplitude_to_db(D)
+        # D = librosa.amplitude_to_db(np.abs(D))
         for i in onsets_frames:
             results.append(np.array(D[:, i]).reshape((1025, 1, 1)))
         return results
